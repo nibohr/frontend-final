@@ -31,7 +31,7 @@
               </template>
               <v-card>
                 <v-card-title>
-                  <span class="headline">{{ formTitle }}</span>
+                  <span class="headline"> {{ formTitle }}</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -83,7 +83,7 @@
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
         <v-icon
           small
           class="mr-2"
@@ -200,6 +200,7 @@ import axios from'axios';
           //put
           axios.put('http://localhost:3000/api/categoria/deactivate',{
             "id": this.editedItem.id,
+            "estado":0
           }, {
            headers:{
              token: this.$store.state.token
@@ -215,6 +216,7 @@ import axios from'axios';
           //post
           axios.put('http://localhost:3000/api/categoria/activate',{
             "id": this.editedItem.id,
+            "estado":1
           }, {
            headers:{
              token: this.$store.state.token

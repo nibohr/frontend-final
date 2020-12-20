@@ -99,7 +99,7 @@
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
         <v-icon
           small
           class="mr-2"
@@ -219,9 +219,10 @@ import axios from'axios';
       deleteItemConfirm () {
         if (this.editedItem.estado === 1) {
           //put
-          axios.put('http://localhost:3000/api/categoria/deactivate',{
+          axios.put('http://localhost:3000/api/usuario/deactivate',{
             "id": this.editedItem.id,
-          })
+            "estado":0
+          },{headers:{token: this.$store.state.token}})
             .then( response => {
               this.list();
             })
@@ -230,9 +231,10 @@ import axios from'axios';
             })
         } else {
           //post
-          axios.put('http://localhost:3000/api/categoria/activate',{
+          axios.put('http://localhost:3000/api/usuario/activate',{
             "id": this.editedItem.id,
-          })
+            "estado":1
+          },{headers:{token: this.$store.state.token}})
             .then( response => {
               this.list();
             })
@@ -262,11 +264,12 @@ import axios from'axios';
       save () {
         if (this.editedIndex > -1) {
           //put
-          axios.put('http://localhost:3000/api/categoria/update',{
+          axios.put('http://localhost:3000/api/usuario/update',{
             "id": this.editedItem.id,
             "nombre": this.editedItem.nombre,
             "descripcion": this.editedItem.descripcion,
-          })
+            "email":this.editedItem.email
+          },{headers:{token: this.$store.state.token}})
             .then( response => {
               this.list();
             })
@@ -275,11 +278,12 @@ import axios from'axios';
             })
         } else {
           //post
-          axios.post('http://localhost:3000/api/categoria/add',{
+          axios.post('http://localhost:3000/api/usuario/add',{
             "estado": 1,
             "nombre": this.editedItem.nombre,
             "descripcion": this.editedItem.descripcion,
-          })
+            "email":this.editedItem.email
+          },{headers:{token: this.$store.state.token}})
             .then( response => {
               this.list();
             })
