@@ -9,7 +9,7 @@
       <v-btn
       icon
       class="mr-5"
-      @click="salir()">
+      @click.prevent="logOut">
          <v-icon>mdi-logout</v-icon>
          <span>Salir</span>
       </v-btn>
@@ -118,9 +118,11 @@ export default {
     this.$store.dispactch('autoLogin');
   },
   methods:{
-    salir(){
-      this.$store.dispactch('salir'); 
-    }
+    logOut() {
+      localStorage.removeItem("jwt");
+      // localStorage.removeItem("user");
+      this.$router.push("/");
+    },
   }
 };
 </script>
