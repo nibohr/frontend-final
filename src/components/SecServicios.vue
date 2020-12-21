@@ -6,7 +6,7 @@
     
           <div class="row justify-content-center">
             <div class="mt-5 pt-5 col-sm-6 ">
-              <div class="card bg-light border border-primary shadow" v-for="categoria in categorias">
+              <div class="card bg-light border border-primary shadow" v-for="(categoria, index) in categorias" :key="categoria.id">
                 <img src="../../public/img/cenefaMarketing.jpg" class="card-img-top" alt="imagen restaurante">
                 <div class="card-body" >
                   <h5 class="card-title text-dark">{{categoria.nombre}}</h5>
@@ -18,20 +18,20 @@
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                        <div class="modal-content" >
                         <div class="modal-header bg-dark">
-                            <h5 class="modal-title text-white" id="staticBackdrop">Portafolio de productos</h5>
+                            <h5 class="modal-title text-white" id="staticBackdrop1">Portafolio de productos</h5>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <h5 class="text-info">Marketing Digital</h5>
+                        <div class="modal-body"  v-for="(subcategoria, subindex) in categorias" :key="subcategoria.id">
+                            <h5 class="text-info">{{subcategoria.nombre}}</h5>
                             <p>
-                            <ul class="list-group list-group-flush p-0" >
-                                <li v-for="articulo in articulos" v-if="categoria.nombre=articulo.categoria">{{articulo.nombre}}</li>
+                            <ul class="list-group list-group-flush p-0" v-for="(articulo,indexart) in articulos" :key="articulo.id">
+                                <li class="list-group-item"    v-if="articulo.categoria.nombre==subcategoria.nombre">{{articulo.nombre}}</li>
                                 <!-- <li class="list-group-item">SEO y Posicionamiento Web</li>
                                 <li class="list-group-item">Posicionamiento en redes</li>
                                 <li class="list-group-item">Fotografía y Video</li>
@@ -43,7 +43,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info text-white" data-dismiss="modal">OK</button>
                         </div>
-                        </div>
+                    </div>
                     </div>
                     </div>
                 </div>
