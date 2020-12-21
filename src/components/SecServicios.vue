@@ -27,7 +27,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body"  v-for="(subcategoria, subindex) in categorias" :key="subcategoria.id">
+                        <div class="modal-body mdl-bdy" v-for="(subcategoria, subindex) in categorias" :key="subcategoria.id">
                             <h5 class="text-info">{{subcategoria.nombre}}</h5>
                             <p>
                             <ul class="list-group list-group-flush p-0" v-for="(articulo,indexart) in articulos" :key="articulo.id">
@@ -107,6 +107,14 @@ export default {
 h2{
     color: #00ACC1;
     text-align: left !important;
+}
+
+.modal-content{
+    max-height: 600px !important;
+}
+
+.modal-body.mdl-bdy{
+    max-height: 300px !important;
 }
 
 </style>
