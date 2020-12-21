@@ -57,7 +57,8 @@
 
                       <v-col cols="12">
                         <v-text-field
-                          v-model="editedItem.password"
+                          ref="Pass"
+                          v-on:input="editedItem.password=$event.target.value"
                           label="Password"
                         ></v-text-field>
                       </v-col>
@@ -262,10 +263,8 @@ export default {
     },
 
     save() {
-      // const pass = bcrypt.hashSync(this.editedItem.password, 8);
       if (this.editedIndex > -1) {
         //put
-        // constbcrypt;
         axios
           .put(
             "http://localhost:3000/api/usuario/update",
@@ -279,6 +278,7 @@ export default {
             { headers: { token: this.$store.state.token } }
           )
           .then((response) => {
+            this.$refs["Pass"].value=''
             this.list();
           })
           .catch((error) => {
