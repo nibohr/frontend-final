@@ -44,7 +44,7 @@
                       <v-col cols="12">
                         <v-textarea
                           v-model="editedItem.descripcion"
-                          label="DescripciónESX"
+                          label="Descripción"
                           auto-grow
                           no-resize
                           counter="250"
