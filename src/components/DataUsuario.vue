@@ -58,7 +58,7 @@
                       <v-col cols="12">
                         <v-text-field
                           ref="Pass"
-                          v-on:input="editedItem.password=$event.target.value"
+                          v-on:input="editedItem.password = $event"
                           label="Password"
                         ></v-text-field>
                       </v-col>
@@ -205,6 +205,7 @@ export default {
       this.editedIndex = item.id;
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
+      
     },
 
     deleteItemConfirm() {
@@ -286,6 +287,7 @@ export default {
           });
       } else {
         //post
+        
         axios
           .post(
             "http://localhost:3000/api/usuario/add",
@@ -299,6 +301,7 @@ export default {
             { headers: { token: this.$store.state.token } }
           )
           .then((response) => {
+            this.$refs["Pass"].value=''
             this.list();
           })
           .catch((error) => {
