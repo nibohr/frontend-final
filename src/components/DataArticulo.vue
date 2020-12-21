@@ -36,13 +36,6 @@
                     <v-row>
                       <v-col cols="12">
                         <v-text-field
-                          v-model="editedItem.id"
-                          label="ID"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <v-text-field
                           v-model="editedItem.nombre"
                           label="Nombre"
                         ></v-text-field>
@@ -73,13 +66,6 @@
                         <v-text-field
                           v-model="editedItem.codigo"
                           label="Código"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="editedItem.estado"
-                          label="Estado"
                         ></v-text-field>
                       </v-col>
                     </v-row>
@@ -327,7 +313,7 @@ export default {
               id: this.editedItem.id,
               nombre: this.editedItem.nombre,
               descripcion: this.editedItem.descripcion,
-              codigo: this.editItem.codigo,
+              codigo: this.editedItem.codigo,
               categoriaId: this.categoria.id,
             },
             {
@@ -345,13 +331,21 @@ export default {
       } else {
         //post
         axios
-          .post("http://localhost:3000/api/articulo/add", {
-            estado: 1,
-            nombre: this.editedItem.nombre,
-            descripcion: this.editedItem.descripcion,
-            codigo: this.editItem.codigo,
-            categoriaId: this.categoria.id,
-          })
+          .post(
+            "http://localhost:3000/api/articulo/add",
+            {
+              estado: 1,
+              nombre: this.editedItem.nombre,
+              descripcion: this.editedItem.descripcion,
+              codigo: this.editedItem.codigo,
+              categoriaId: this.categoria.id,
+            },
+            {
+              headers: {
+                token: this.$store.state.token,
+              },
+            }
+          )
           .then((response) => {
             this.list();
           })
