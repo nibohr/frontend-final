@@ -6,11 +6,11 @@
     
           <div class="row justify-content-center">
             <div class="mt-5 pt-5 col-sm-6 ">
-              <div class="card bg-light border border-primary shadow">
+              <div class="card bg-light border border-primary shadow" v-for="categoria in categorias">
                 <img src="../../public/img/cenefaMarketing.jpg" class="card-img-top" alt="imagen restaurante">
-                <div class="card-body">
-                  <h5 class="card-title text-dark">Marketing Digital</h5>
-                  <p class="card-text text-dark">Aplicamos estrategias de comercialización llevadas a cabo en los medios digitales. Todas las técnicas del mundo off-line son imitadas y traducidas a un nuevo mundo, el mundo online.
+                <div class="card-body" >
+                  <h5 class="card-title text-dark">{{categoria.nombre}}</h5>
+                  <p class="card-text text-dark">{{categoria.descripcion}}
                   </p>
                         <!-- Button trigger modal -->
                     <button type="button" class="btn btn-info text-white float-right" data-toggle="modal" data-target="#staticBackdrop">
@@ -30,12 +30,13 @@
                         <div class="modal-body">
                             <h5 class="text-info">Marketing Digital</h5>
                             <p>
-                            <ul class="list-group list-group-flush p-0">
-                                <li class="list-group-item">SEO y Posicionamiento Web</li>
+                            <ul class="list-group list-group-flush p-0" >
+                                <li v-for="articulo in articulos" v-if="categoria.nombre=articulo.categoria">{{articulo.nombre}}</li>
+                                <!-- <li class="list-group-item">SEO y Posicionamiento Web</li>
                                 <li class="list-group-item">Posicionamiento en redes</li>
                                 <li class="list-group-item">Fotografía y Video</li>
                                 <li class="list-group-item">Email Marketing</li>
-                                <li class="list-group-item">Merchandising</li>
+                                <li class="list-group-item">Merchandising</li> -->
                             </ul>
                             </p>
                         </div>
@@ -53,8 +54,49 @@
     </div>
 </template>
 <script>
+import axios from'axios';
 export default {
-    name: 'SecServicos'
+    name: 'SecServicos',
+    data: () => ({
+      categorias: [],
+      articulos:[]
+    }),
+    created () {
+      this.list();
+      this.listArt();
+    },
+    methods: {
+      list(){
+        //se traen los datos de la BD
+        //Se necesitará Token
+        //ya esta instalado Axios
+        //se hace peticion para guardar el resultado en la variable variable categorias: [],
+         axios.get('http://localhost:3000/api/categoria/list', {
+         })
+         .then(response => {
+           this.categorias = response.data;
+           this.cargando = false;
+         })
+         .catch(error =>{
+           console.log(error)
+         })
+      },
+      listArt() {
+      //se traen los datos de la BD
+      //Se necesitará Token
+      //ya esta instalado Axios
+      //se hace peticion para guardar el resultado en la variable variable articulos: [],
+      axios
+        .get("http://localhost:3000/api/articulo/list")
+        .then((response) => {
+          this.articulos = response.data;
+          this.cargando = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    }
 }
 </script>
 <style scoped>
